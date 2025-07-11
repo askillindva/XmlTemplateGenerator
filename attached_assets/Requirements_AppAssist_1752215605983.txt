@@ -1,0 +1,53 @@
+1. Core Functionality:
+The application should scan a designated local folder (e.g., ./xml_templates/) to find all available XML template files (ending in .xml).
+It will display a list of these available templates on the homepage.
+When a user clicks on a template name, they will be taken to a new page with a dynamically generated web form.
+
+2. Dynamic Form Generation:
+For the selected template, the application must parse the XML file to find all Jinja2-style placeholders (e.g., {{ variable_name }}).
+It must then dynamically create an HTML form with a text input field for each unique placeholder found. The label for each input field should be the variable name itself (e.g., "variable_name").
+
+3. XML Generation and Display:
+After the user fills out the form and clicks "Submit," the application will use the submitted data to render the XML template.
+The final, generated XML string will be displayed on a results page.
+Include a "Copy to Clipboard" button on the results page for user convenience.
+
+4. Database Logging with SQLite:
+Use Python's built-in sqlite3 library. No external ORMs are needed.
+On application startup, ensure a SQLite database file (actions.db) and a table named logs are created if they don't exist.
+The logs table must have the following columns:
+
+- id (INTEGER, PRIMARY KEY, AUTOINCREMENT)
+- timestamp (TEXT, storing the current UTC timestamp)
+- template_name (TEXT)
+- submitted_data (TEXT, storing the user-provided values as a JSON string)
+- generated_xml (TEXT)
+
+Every time a user successfully generates an XML message, a new record must be inserted into this table.
+
+5. Project Structure and Code:
+Provide all Python code in a single, well-commented app.py file.
+Provide the HTML for the web pages within the Python file as multi-line strings or using Flask's render_template_string function.
+Create two example XML templates (template1.xml and template2.xml) that the application can use. Show what their content should be.
+Provide clear instructions on how to set up the directory structure, install dependencies (pip install Flask), and run the application.
+
+6. User Interface (UI):
+Use clean, minimal HTML and CSS. No complex styling is required, but the layout should be clear and user-friendly.
+Example XML Template (template1.xml):
+
+XML
+
+`<order>
+    <orderId>{{ order_id }}</orderId>
+    <customer>
+        <name>{{ customer_name }}</name>
+        <email>{{ customer_email }}</email>
+    </customer>
+    <item>
+        <sku>{{ product_sku }}</sku>
+        <quantity>{{ quantity }}</quantity>
+    </item>
+</order>`
+
+7. Final Output:
+Please provide the complete app.py file, the content for the example XML templates, and the step-by-step instructions to run the project as README.md
