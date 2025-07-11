@@ -1,0 +1,16 @@
+<notification>
+    <recipient>
+        <userId>{{ user_id }}</userId>
+        <email>{{ email_address }}</email>
+        <phoneNumber>{{ phone_number }}</phoneNumber>
+    </recipient>
+    <message>
+        <subject>{{ message_subject }}</subject>
+        <body>{{ message_body }}</body>
+        <priority>{{ priority_level }}</priority>
+    </message>
+    <sender>
+        <systemName>{{ system_name }}</systemName>
+        <timestamp>{{ timestamp }}</timestamp>
+    </sender>
+</notification>

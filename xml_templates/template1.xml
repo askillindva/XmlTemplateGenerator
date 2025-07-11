@@ -1,0 +1,11 @@
+<order>
+    <orderId>{{ order_id }}</orderId>
+    <customer>
+        <name>{{ customer_name }}</name>
+        <email>{{ customer_email }}</email>
+    </customer>
+    <item>
+        <sku>{{ product_sku }}</sku>
+        <quantity>{{ quantity }}</quantity>
+    </item>
+</order>
