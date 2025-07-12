@@ -7,6 +7,8 @@ ABAssist is a Flask web application platform that serves as a comprehensive tool
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Code organization: Very organized code structure with independent sub-applications for future scalability.
+HTML organization: Well-organized HTML templates for easy navigation and management.
 
 ## System Architecture
 
@@ -36,7 +38,9 @@ The application follows a modular monolithic architecture with a main platform a
 
 ### Backend Architecture
 - **Framework**: Flask (Python micro-framework)
-- **Structure**: Single-file application (app.py) with modular route organization
+- **Structure**: Single-file application (app.py) with organized service classes and modular route organization
+- **Code Organization**: Service classes for each sub-application (XMLGeneratorService, TransactionReversalService)
+- **Template Organization**: HTML templates grouped by sub-application with clear section headers
 - **Route Structure**: Hierarchical URLs matching navigation structure:
   - `/` - ABAssist main homepage
   - `/lsv` - LSV sub-application homepage  
