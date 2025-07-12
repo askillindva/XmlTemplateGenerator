@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ABAssist - Application Support Platform{% endblock %}</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <!-- Header -->
+    <header class="bg-primary text-white">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand fw-bold" href="{{ url_for('main_home') }}">
+                    <i class="fas fa-tools me-2"></i>
+                    ABAssist
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <div class="navbar-nav ms-auto">
+                        {% block nav_items %}
+                        <a class="nav-link" href="{{ url_for('lsv.home') }}">
+                            <i class="fas fa-code me-1"></i>LSV
+                        </a>
+                        <a class="nav-link" href="{{ url_for('future_app.home') }}">
+                            <i class="fas fa-rocket me-1"></i>Future App
+                        </a>
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow-1">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h6 class="fw-bold mb-2">
+                        <i class="fas fa-tools me-2"></i>
+                        ABAssist Platform
+                    </h6>
+                    <p class="mb-1 text-muted">Application Support and Reliability Engineering Tools</p>
+                    <small class="text-muted">Streamlining operations for engineering teams</small>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="mb-2">
+                        <small class="text-muted">Quick Access:</small>
+                    </div>
+                    <div class="d-flex flex-column flex-md-row justify-content-md-end gap-2">
+                        <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-outline-light btn-sm">
+                            <i class="fas fa-file-code me-1"></i>XML Generator
+                        </a>
+                        <a href="{{ url_for('lsv.tran_reversal_home') }}" class="btn btn-outline-light btn-sm">
+                            <i class="fas fa-undo me-1"></i>Tran Reversal
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-3 border-secondary">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <small class="text-muted">
+                        © 2025 ABAssist Platform. Built for Application Support Teams.
+                    </small>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <small class="text-muted">
+                        <i class="fas fa-server me-1"></i>
+                        Powered by Flask & Bootstrap
+                    </small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

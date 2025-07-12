@@ -29,10 +29,13 @@ The application follows a modular monolithic architecture with a main platform a
 ### Frontend Architecture
 - **Technology**: Server-side rendered HTML using Flask's render_template with organized template files
 - **Template Organization**: HTML templates grouped by sub-application in separate folders:
-  - `templates/main_home.html` - Main ABAssist homepage
+  - `templates/base.html` - Base template with header, footer, and common styling
+  - `templates/main_home.html` - Main ABAssist homepage with professional hero section
   - `templates/lsv/` - All LSV sub-application templates
   - `templates/future_app/` - Future sub-application templates
-- **Styling**: Bootstrap-based responsive design with consistent navigation
+- **Template Inheritance**: All pages extend from base.html to eliminate code duplication
+- **Styling**: Bootstrap-based responsive design with professional header/footer and consistent navigation
+- **Design**: Professional layout with hero sections, feature cards, and modern styling
 - **User Flow**: 
   1. ABAssist homepage displays sub-applications
   2. LSV homepage shows available tools
@@ -141,7 +144,8 @@ CREATE TABLE logs (
 ├── future_app.py         # Template for future sub-applications
 ├── actions.db            # SQLite database (auto-created)
 ├── templates/            # HTML templates organized by sub-application
-│   ├── main_home.html    # Main ABAssist homepage
+│   ├── base.html         # Base template with header, footer, and common styling
+│   ├── main_home.html    # Professional main homepage with hero section
 │   ├── lsv/              # LSV sub-application templates
 │   │   ├── home.html
 │   │   ├── xml_generator_home.html

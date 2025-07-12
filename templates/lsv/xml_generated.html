@@ -1,97 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generated XML - {{ template_name }}</title>
-    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('main_home') }}">
-                <i class="fas fa-tools me-2"></i>
-                ABAssist
-            </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="{{ url_for('lsv.home') }}">
-                    <i class="fas fa-code me-1"></i>LSV
+{% extends "base.html" %}
+
+{% block title %}Generated XML - {{ template_name }}{% endblock %}
+
+{% block nav_items %}
+<a class="nav-link" href="{{ url_for('lsv.home') }}">
+    <i class="fas fa-code me-1"></i>LSV
+</a>
+<a class="nav-link" href="{{ url_for('future_app.home') }}">
+    <i class="fas fa-rocket me-1"></i>Future App
+</a>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+function copyToClipboard() {
+    const xmlContent = document.getElementById('xmlContent').textContent;
+    navigator.clipboard.writeText(xmlContent).then(function() {
+        // Show success feedback
+        const button = document.querySelector('button[onclick="copyToClipboard()"]');
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class="fas fa-check me-1"></i>Copied!';
+        button.classList.remove('btn-outline-primary');
+        button.classList.add('btn-success');
+        
+        setTimeout(function() {
+            button.innerHTML = originalText;
+            button.classList.remove('btn-success');
+            button.classList.add('btn-outline-primary');
+        }, 2000);
+    });
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                        <a href="{{ url_for('main_home') }}">
+                            <i class="fas fa-home me-1"></i>ABAssist
+                        </a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ url_for('lsv.home') }}">LSV</a>
+                    </li>
+                    <li class="breadcrumb-item">
+                        <a href="{{ url_for('lsv.xml_generator_home') }}">XML Generator</a>
+                    </li>
+                    <li class="breadcrumb-item active">Generated XML</li>
+                </ol>
+            </nav>
+            
+            <div class="text-center mb-4">
+                <h2>
+                    <i class="fas fa-check-circle text-success me-2"></i>
+                    XML Generated Successfully
+                </h2>
+                <p class="text-muted">From template: {{ template_name }}</p>
+            </div>
+            
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5><i class="fas fa-code me-2"></i>Generated XML</h5>
+                    <button class="btn btn-outline-primary btn-sm" onclick="copyToClipboard()">
+                        <i class="fas fa-copy me-1"></i>Copy
+                    </button>
+                </div>
+                <div class="card-body">
+                    <pre class="bg-dark text-light p-3 rounded" id="xmlContent">{{ generated_xml }}</pre>
+                </div>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+                <a href="{{ url_for('lsv.template_form', template_name=template_name) }}" class="btn btn-secondary me-md-2">
+                    <i class="fas fa-edit me-1"></i>Edit Values
+                </a>
+                <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-primary">
+                    <i class="fas fa-list me-1"></i>Choose Another Template
                 </a>
             </div>
         </div>
-    </nav>
-    
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('main_home') }}">
-                                <i class="fas fa-home me-1"></i>ABAssist
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('lsv.home') }}">LSV</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('lsv.xml_generator_home') }}">XML Generator</a>
-                        </li>
-                        <li class="breadcrumb-item active">Generated XML</li>
-                    </ol>
-                </nav>
-                
-                <div class="text-center mb-4">
-                    <h2>
-                        <i class="fas fa-check-circle text-success me-2"></i>
-                        XML Generated Successfully
-                    </h2>
-                    <p class="text-muted">From template: {{ template_name }}</p>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5><i class="fas fa-code me-2"></i>Generated XML</h5>
-                        <button class="btn btn-outline-primary btn-sm" onclick="copyToClipboard()">
-                            <i class="fas fa-copy me-1"></i>Copy
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <pre class="bg-dark text-light p-3 rounded" id="xmlContent">{{ generated_xml }}</pre>
-                    </div>
-                </div>
-                
-                <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
-                    <a href="{{ url_for('lsv.template_form', template_name=template_name) }}" class="btn btn-secondary me-md-2">
-                        <i class="fas fa-edit me-1"></i>Edit Values
-                    </a>
-                    <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-primary">
-                        <i class="fas fa-list me-1"></i>Choose Another Template
-                    </a>
-                </div>
-            </div>
-        </div>
     </div>
-    
-    <script>
-    function copyToClipboard() {
-        const xmlContent = document.getElementById('xmlContent').textContent;
-        navigator.clipboard.writeText(xmlContent).then(function() {
-            // Show success feedback
-            const button = document.querySelector('button[onclick="copyToClipboard()"]');
-            const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-check me-1"></i>Copied!';
-            button.classList.remove('btn-outline-primary');
-            button.classList.add('btn-success');
-            
-            setTimeout(function() {
-                button.innerHTML = originalText;
-                button.classList.remove('btn-success');
-                button.classList.add('btn-outline-primary');
-            }, 2000);
-        });
-    }
-    </script>
-</body>
-</html>
+</div>
+{% endblock %}
