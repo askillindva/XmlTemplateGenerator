@@ -21,7 +21,8 @@ The application follows a modular monolithic architecture with a main platform a
 ### LSV Sub-Application Architecture
 - **LSV Dashboard**: Tool selection interface for log/script/validation utilities
 - **XML Template Generator**: Core functionality for XML message generation
-- **Future Tools**: Placeholders for Log Analyzer, Script Runner, and Validator
+- **Transaction Reversal**: Oracle 19c database integration for transaction management and reversal via JConsole
+- **Future Tools**: Placeholders for Script Runner and Validator
 
 ### Frontend Architecture
 - **Technology**: Server-side rendered HTML using Flask's render_template_string
@@ -42,6 +43,10 @@ The application follows a modular monolithic architecture with a main platform a
   - `/lsv/xml-generator` - XML Template Generator tool
   - `/lsv/xml-generator/template/<name>` - Template form pages
   - `/lsv/xml-generator/generate/<name>` - XML generation endpoints
+  - `/lsv/tran-reversal` - Transaction Reversal tool
+  - `/lsv/tran-reversal/search` - Transaction search endpoint
+  - `/lsv/tran-reversal/transaction/<id>` - Transaction details pages
+  - `/lsv/tran-reversal/initiate-reversal/<id>` - Reversal initiation endpoint
 - **Template Processing**: Jinja2 template engine for XML generation
 - **Pattern Matching**: Regular expressions to extract placeholders from XML templates
 
@@ -87,6 +92,10 @@ The application follows a modular monolithic architecture with a main platform a
 ### Required Python Packages
 - **Flask**: Web framework for routing and templating
 - **sqlite3**: Built-in Python module for database operations
+- **cx_Oracle**: Oracle database connectivity for transaction management
+- **requests**: HTTP library for external service calls
+- **subprocess**: For JConsole integration
+- **jinja2**: Template engine for XML generation
 - **os, json, re, logging, datetime**: Standard library modules
 
 ### Template Requirements
