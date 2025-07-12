@@ -16,9 +16,9 @@
 
 {% block content %}
 <!-- Page Header -->
-<div class="jumbotron">
+<div class="jumbotron py-5">
     <div class="container">
-        <h1 class="display-4">
+        <h1 class="display-4 mb-4">
             <i class="fas fa-code text-primary me-3"></i>
             LSV Tools
         </h1>
@@ -27,9 +27,9 @@
 </div>
 
 <!-- Main Content -->
-<div class="container">
+<div class="container py-4">
     <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="{{ url_for('main_home') }}">
@@ -42,61 +42,61 @@
 
     <!-- Tools Grid -->
     <div class="row">
-        <div class="col-lg-6 col-md-6 mb-4">
+        <div class="col-lg-6 col-md-6 mb-5">
             <div class="card h-100">
-                <div class="card-body text-center">
-                    <div class="mb-3">
+                <div class="card-body text-center p-4">
+                    <div class="mb-4">
                         <i class="fas fa-file-code fa-4x text-success"></i>
                     </div>
-                    <h4 class="card-title">XML Generator</h4>
-                    <p class="card-text">Generate XML messages from predefined templates with dynamic placeholders</p>
-                    <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-success">
-                        <i class="fas fa-play me-1"></i>Launch Tool
+                    <h4 class="card-title mb-3">XML Generator</h4>
+                    <p class="card-text mb-4">Generate XML messages from predefined templates with dynamic placeholders</p>
+                    <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-success btn-lg">
+                        <i class="fas fa-play me-2"></i>Launch Tool
                     </a>
                 </div>
             </div>
         </div>
         
-        <div class="col-lg-6 col-md-6 mb-4">
+        <div class="col-lg-6 col-md-6 mb-5">
             <div class="card h-100">
-                <div class="card-body text-center">
-                    <div class="mb-3">
+                <div class="card-body text-center p-4">
+                    <div class="mb-4">
                         <i class="fas fa-undo fa-4x text-warning"></i>
                     </div>
-                    <h4 class="card-title">Transaction Reversal</h4>
-                    <p class="card-text">Oracle 19c transaction management and reversal via JConsole integration</p>
-                    <a href="{{ url_for('lsv.tran_reversal_home') }}" class="btn btn-warning">
-                        <i class="fas fa-play me-1"></i>Launch Tool
+                    <h4 class="card-title mb-3">Transaction Reversal</h4>
+                    <p class="card-text mb-4">Oracle 19c transaction management and reversal via JConsole integration</p>
+                    <a href="{{ url_for('lsv.tran_reversal_home') }}" class="btn btn-warning btn-lg">
+                        <i class="fas fa-play me-2"></i>Launch Tool
                     </a>
                 </div>
             </div>
         </div>
         
-        <div class="col-lg-6 col-md-6 mb-4">
+        <div class="col-lg-6 col-md-6 mb-5">
             <div class="card h-100">
-                <div class="card-body text-center">
-                    <div class="mb-3">
+                <div class="card-body text-center p-4">
+                    <div class="mb-4">
                         <i class="fas fa-terminal fa-4x text-muted"></i>
                     </div>
-                    <h4 class="card-title text-muted">Script Runner</h4>
-                    <p class="card-text text-muted">Execute and manage application scripts (coming soon)</p>
-                    <button class="btn btn-outline-secondary" disabled>
-                        <i class="fas fa-construction me-1"></i>Coming Soon
+                    <h4 class="card-title text-muted mb-3">Script Runner</h4>
+                    <p class="card-text text-muted mb-4">Execute and manage application scripts (coming soon)</p>
+                    <button class="btn btn-outline-secondary btn-lg" disabled>
+                        <i class="fas fa-construction me-2"></i>Coming Soon
                     </button>
                 </div>
             </div>
         </div>
         
-        <div class="col-lg-6 col-md-6 mb-4">
+        <div class="col-lg-6 col-md-6 mb-5">
             <div class="card h-100">
-                <div class="card-body text-center">
-                    <div class="mb-3">
+                <div class="card-body text-center p-4">
+                    <div class="mb-4">
                         <i class="fas fa-check-circle fa-4x text-muted"></i>
                     </div>
-                    <h4 class="card-title text-muted">Validator</h4>
-                    <p class="card-text text-muted">Data validation and integrity checks (coming soon)</p>
-                    <button class="btn btn-outline-secondary" disabled>
-                        <i class="fas fa-construction me-1"></i>Coming Soon
+                    <h4 class="card-title text-muted mb-3">Validator</h4>
+                    <p class="card-text text-muted mb-4">Data validation and integrity checks (coming soon)</p>
+                    <button class="btn btn-outline-secondary btn-lg" disabled>
+                        <i class="fas fa-construction me-2"></i>Coming Soon
                     </button>
                 </div>
             </div>

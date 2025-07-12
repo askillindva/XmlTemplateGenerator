@@ -16,9 +16,9 @@
 
 {% block content %}
 <!-- Page Header -->
-<div class="jumbotron">
+<div class="jumbotron py-5">
     <div class="container">
-        <h1 class="display-4">
+        <h1 class="display-4 mb-4">
             <i class="fas fa-undo text-warning me-3"></i>
             Transaction Reversal
         </h1>
@@ -27,9 +27,9 @@
 </div>
 
 <!-- Main Content -->
-<div class="container">
+<div class="container py-4">
     <!-- Breadcrumb -->
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="{{ url_for('main_home') }}">
@@ -44,7 +44,7 @@
     </nav>
 
     {% if error_message %}
-    <div class="alert alert-danger">
+    <div class="alert alert-danger mb-4">
         <i class="fas fa-exclamation-triangle me-2"></i>
         {{ error_message }}
     </div>
@@ -54,41 +54,41 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h4><i class="fas fa-search me-2"></i>Search Transactions</h4>
+                <div class="card-header py-3">
+                    <h4 class="mb-0"><i class="fas fa-search me-2"></i>Search Transactions</h4>
                 </div>
-                <div class="card-body">
+                <div class="card-body p-4">
                     <form method="POST" action="{{ url_for('lsv.search_transactions') }}">
                         <div class="row">
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-4 mb-4">
                                 <label for="txn_id" class="form-label fw-bold">Transaction ID</label>
-                                <input type="text" class="form-control" id="txn_id" name="txn_id" 
+                                <input type="text" class="form-control form-control-lg" id="txn_id" name="txn_id" 
                                        placeholder="Enter transaction ID">
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-4 mb-4">
                                 <label for="account_number" class="form-label fw-bold">Account Number</label>
-                                <input type="text" class="form-control" id="account_number" name="account_number" 
+                                <input type="text" class="form-control form-control-lg" id="account_number" name="account_number" 
                                        placeholder="Enter account number">
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-4 mb-4">
                                 <label for="reference_number" class="form-label fw-bold">Reference Number</label>
-                                <input type="text" class="form-control" id="reference_number" name="reference_number" 
+                                <input type="text" class="form-control form-control-lg" id="reference_number" name="reference_number" 
                                        placeholder="Enter reference number">
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-4">
                                 <label for="date_from" class="form-label fw-bold">Date From</label>
-                                <input type="date" class="form-control" id="date_from" name="date_from">
+                                <input type="date" class="form-control form-control-lg" id="date_from" name="date_from">
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-6 mb-4">
                                 <label for="date_to" class="form-label fw-bold">Date To</label>
-                                <input type="date" class="form-control" id="date_to" name="date_to">
+                                <input type="date" class="form-control form-control-lg" id="date_to" name="date_to">
                             </div>
                         </div>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="submit" class="btn btn-primary btn-lg">
-                                <i class="fas fa-search me-1"></i>Search Transactions
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">
+                                <i class="fas fa-search me-2"></i>Search Transactions
                             </button>
                         </div>
                     </form>
@@ -99,15 +99,15 @@
 
     <!-- Database Status -->
     {% if oracle_available %}
-    <div class="alert alert-info mt-4">
+    <div class="alert alert-info mt-5 p-4">
         <i class="fas fa-info-circle me-2"></i>
         Oracle 19c connection is available. You can search for transactions and initiate reversals.
     </div>
     {% else %}
-    <div class="alert alert-warning mt-4">
+    <div class="alert alert-warning mt-5 p-4">
         <i class="fas fa-exclamation-triangle me-2"></i>
         Oracle client libraries are not available. Please configure Oracle connection details in environment variables:
-        <ul class="mt-2 mb-0">
+        <ul class="mt-3 mb-0">
             <li>ORACLE_HOST</li>
             <li>ORACLE_PORT</li>
             <li>ORACLE_SERVICE_NAME</li>
@@ -118,9 +118,9 @@
     {% endif %}
 
     <!-- Back Button -->
-    <div class="text-center mt-4">
-        <a href="{{ url_for('lsv.home') }}" class="btn btn-secondary">
-            <i class="fas fa-arrow-left me-1"></i>Back to LSV Tools
+    <div class="text-center mt-5">
+        <a href="{{ url_for('lsv.home') }}" class="btn btn-secondary btn-lg">
+            <i class="fas fa-arrow-left me-2"></i>Back to LSV Tools
         </a>
     </div>
 </div>

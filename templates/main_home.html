@@ -16,10 +16,10 @@
 
 {% block content %}
 <!-- Jumbotron -->
-<div class="jumbotron">
+<div class="jumbotron py-5">
     <div class="container">
-        <h1 class="display-3">Application Support Platform</h1>
-        <p class="lead">Streamline your operations with our comprehensive suite of tools designed for Application Support and Reliability Engineering teams.</p>
+        <h1 class="display-3 mb-4">Application Support Platform</h1>
+        <p class="lead mb-4">Streamline your operations with our comprehensive suite of tools designed for Application Support and Reliability Engineering teams.</p>
         <a class="btn btn-primary btn-lg" href="{{ url_for('lsv.home') }}" role="button">
             <i class="fas fa-play me-2"></i>Get Started
         </a>
@@ -27,73 +27,73 @@
 </div>
 
 <!-- Main Content -->
-<div class="container">
+<div class="container py-5">
     <!-- Feature Row -->
-    <div class="row">
-        <div class="col-md-6">
-            <h2>
-                <i class="fas fa-code text-primary me-2"></i>
-                LSV Tools
-            </h2>
-            <p>Comprehensive toolkit for XML template generation, Oracle database transaction management, and validation utilities. Perfect for day-to-day support operations.</p>
-            <div class="mb-3">
-                <span class="badge bg-success me-2">XML Generator</span>
-                <span class="badge bg-warning me-2">Transaction Reversal</span>
-                <span class="badge bg-secondary me-2">Coming Soon: Script Runner</span>
-            </div>
-            <p>
-                <a class="btn btn-secondary" href="{{ url_for('lsv.home') }}" role="button">
-                    <i class="fas fa-arrow-right me-1"></i>Launch LSV Tools
+    <div class="row mb-5">
+        <div class="col-md-6 mb-4">
+            <div class="p-4">
+                <h2 class="mb-3">
+                    <i class="fas fa-code text-primary me-2"></i>
+                    LSV Tools
+                </h2>
+                <p class="mb-4">Comprehensive toolkit for XML template generation, Oracle database transaction management, and validation utilities. Perfect for day-to-day support operations.</p>
+                <div class="mb-4">
+                    <span class="badge bg-success me-2">XML Generator</span>
+                    <span class="badge bg-warning me-2">Transaction Reversal</span>
+                    <span class="badge bg-secondary me-2">Coming Soon: Script Runner</span>
+                </div>
+                <a class="btn btn-secondary btn-lg" href="{{ url_for('lsv.home') }}" role="button">
+                    <i class="fas fa-arrow-right me-2"></i>Launch LSV Tools
                 </a>
-            </p>
+            </div>
         </div>
-        <div class="col-md-6">
-            <h2>
-                <i class="fas fa-rocket text-secondary me-2"></i>
-                Future Applications
-            </h2>
-            <p>Additional specialized tools and sub-applications will be added here based on engineering team requirements and operational needs.</p>
-            <div class="mb-3">
-                <span class="badge bg-info me-2">Scalable Architecture</span>
-                <span class="badge bg-secondary me-2">Modular Design</span>
-            </div>
-            <p>
-                <a class="btn btn-secondary" href="{{ url_for('future_app.home') }}" role="button">
-                    <i class="fas fa-eye me-1"></i>Preview
+        <div class="col-md-6 mb-4">
+            <div class="p-4">
+                <h2 class="mb-3">
+                    <i class="fas fa-rocket text-secondary me-2"></i>
+                    Future Applications
+                </h2>
+                <p class="mb-4">Additional specialized tools and sub-applications will be added here based on engineering team requirements and operational needs.</p>
+                <div class="mb-4">
+                    <span class="badge bg-info me-2">Scalable Architecture</span>
+                    <span class="badge bg-secondary me-2">Modular Design</span>
+                </div>
+                <a class="btn btn-secondary btn-lg" href="{{ url_for('future_app.home') }}" role="button">
+                    <i class="fas fa-eye me-2"></i>Preview
                 </a>
-            </p>
+            </div>
         </div>
     </div>
 
-    <hr class="my-4">
+    <hr class="my-5">
 
     <!-- Feature Highlights -->
-    <div class="row text-center">
+    <div class="row text-center py-4">
         <div class="col-lg-3 col-md-6 mb-4">
-            <div class="p-3">
-                <i class="fas fa-file-code fa-3x text-primary mb-3"></i>
-                <h4>XML Generation</h4>
+            <div class="p-4">
+                <i class="fas fa-file-code fa-3x text-primary mb-4"></i>
+                <h4 class="mb-3">XML Generation</h4>
                 <p class="text-muted">Template-based XML message generation</p>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
-            <div class="p-3">
-                <i class="fas fa-database fa-3x text-warning mb-3"></i>
-                <h4>Oracle Management</h4>
+            <div class="p-4">
+                <i class="fas fa-database fa-3x text-warning mb-4"></i>
+                <h4 class="mb-3">Oracle Management</h4>
                 <p class="text-muted">Transaction management and reversal</p>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
-            <div class="p-3">
-                <i class="fas fa-cogs fa-3x text-success mb-3"></i>
-                <h4>Automation</h4>
+            <div class="p-4">
+                <i class="fas fa-cogs fa-3x text-success mb-4"></i>
+                <h4 class="mb-3">Automation</h4>
                 <p class="text-muted">Workflow optimization tools</p>
             </div>
         </div>
         <div class="col-lg-3 col-md-6 mb-4">
-            <div class="p-3">
-                <i class="fas fa-shield-alt fa-3x text-info mb-3"></i>
-                <h4>Reliability</h4>
+            <div class="p-4">
+                <i class="fas fa-shield-alt fa-3x text-info mb-4"></i>
+                <h4 class="mb-3">Reliability</h4>
                 <p class="text-muted">Engineering excellence support</p>
             </div>
         </div>
