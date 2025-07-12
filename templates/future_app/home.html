@@ -3,31 +3,67 @@
 {% block title %}Future App - ABAssist{% endblock %}
 
 {% block nav_items %}
-<a class="nav-link" href="{{ url_for('main_home') }}">Home</a>
-<a class="nav-link" href="{{ url_for('lsv.home') }}">LSV</a>
-<a class="nav-link active" href="{{ url_for('future_app.home') }}">Future App</a>
+<li class="nav-item">
+    <a class="nav-link" href="{{ url_for('main_home') }}">Home</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ url_for('lsv.home') }}">LSV</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="{{ url_for('future_app.home') }}">Future App</a>
+</li>
 {% endblock %}
 
 {% block content %}
-<h1 class="display-5 mb-4">
-    <i class="fas fa-rocket text-secondary me-3"></i>
-    Future Sub-Application
-</h1>
-<p class="lead mb-5">Placeholder for future functionality</p>
+<!-- Page Header -->
+<div class="jumbotron">
+    <div class="container">
+        <h1 class="display-4">
+            <i class="fas fa-rocket text-secondary me-3"></i>
+            Future Sub-Application
+        </h1>
+        <p class="lead">Placeholder for future functionality and expanded capabilities</p>
+    </div>
+</div>
 
-<div class="hero-section">
-    <div class="text-center">
-        <div class="mb-4">
-            <i class="fas fa-construction fa-4x text-warning"></i>
+<!-- Main Content -->
+<div class="container">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('main_home') }}">
+                    <i class="fas fa-home me-1"></i>ABAssist
+                </a>
+            </li>
+            <li class="breadcrumb-item active">Future App</li>
+        </ol>
+    </nav>
+
+    <!-- Under Construction Content -->
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <div class="card">
+                <div class="card-body p-5">
+                    <div class="mb-4">
+                        <i class="fas fa-construction fa-5x text-warning"></i>
+                    </div>
+                    <h2 class="card-title">Under Construction</h2>
+                    <p class="card-text lead mb-4">
+                        This sub-application is being developed and will be available soon.
+                        Future tools and functionality will be added here based on engineering team requirements.
+                    </p>
+                    <div class="mb-4">
+                        <span class="badge bg-info me-2">Scalable Architecture</span>
+                        <span class="badge bg-secondary me-2">Modular Design</span>
+                        <span class="badge bg-success me-2">Future Ready</span>
+                    </div>
+                    <a href="{{ url_for('main_home') }}" class="btn btn-primary btn-lg">
+                        <i class="fas fa-arrow-left me-1"></i>Back to Home
+                    </a>
+                </div>
+            </div>
         </div>
-        <h3>Under Construction</h3>
-        <p class="mb-4">
-            This sub-application is being developed and will be available soon.
-            Future tools and functionality will be added here based on engineering team requirements.
-        </p>
-        <a href="{{ url_for('main_home') }}" class="btn btn-outline-light">
-            <i class="fas fa-arrow-left me-1"></i>Back to Home
-        </a>
     </div>
 </div>
 {% endblock %}
