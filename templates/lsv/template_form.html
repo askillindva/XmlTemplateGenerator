@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ template_name }} - XML Generator</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main_home') }}">
+                <i class="fas fa-tools me-2"></i>
+                ABAssist
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ url_for('lsv.home') }}">
+                    <i class="fas fa-code me-1"></i>LSV
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('main_home') }}">
+                                <i class="fas fa-home me-1"></i>ABAssist
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('lsv.home') }}">LSV</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('lsv.xml_generator_home') }}">XML Generator</a>
+                        </li>
+                        <li class="breadcrumb-item active">{{ template_name }}</li>
+                    </ol>
+                </nav>
+                
+                <div class="text-center mb-4">
+                    <h2>
+                        <i class="fas fa-file-alt text-success me-2"></i>
+                        {{ template_name }}
+                    </h2>
+                    <p class="text-muted">Fill in the values to generate your XML</p>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-edit me-2"></i>Template Variables</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('lsv.generate_xml', template_name=template_name) }}">
+                            {% for variable in variables %}
+                            <div class="mb-3">
+                                <label for="{{ variable }}" class="form-label">{{ variable.replace('_', ' ').title() }}</label>
+                                <input type="text" class="form-control" id="{{ variable }}" name="{{ variable }}" 
+                                       placeholder="Enter {{ variable.replace('_', ' ').lower() }}" required>
+                            </div>
+                            {% endfor %}
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-secondary me-md-2">
+                                    <i class="fas fa-arrow-left me-1"></i>Back
+                                </a>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-code me-1"></i>Generate XML
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

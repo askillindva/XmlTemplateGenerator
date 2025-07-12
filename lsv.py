@@ -5,7 +5,7 @@ import re
 import logging
 import subprocess
 from datetime import datetime
-from flask import Blueprint, render_template_string, request, redirect, url_for, flash
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 try:
     import cx_Oracle
     ORACLE_AVAILABLE = True
@@ -341,524 +341,7 @@ class TransactionReversalService:
         except Exception as e:
             logging.error(f"Error updating reversal status: {e}")
 
-# =============================================================================
-# LSV HTML TEMPLATES
-# =============================================================================
 
-LSV_HOME_TEMPLATE = '''
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LSV - Application Support Tools</title>
-    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('main_home') }}">
-                <i class="fas fa-tools me-2"></i>
-                ABAssist
-            </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link active" href="{{ url_for('lsv.home') }}">
-                    <i class="fas fa-code me-1"></i>LSV
-                </a>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('main_home') }}">
-                                <i class="fas fa-home me-1"></i>ABAssist
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item active">LSV</li>
-                    </ol>
-                </nav>
-                
-                <div class="text-center mb-5">
-                    <h1 class="display-5">
-                        <i class="fas fa-code text-primary me-3"></i>
-                        LSV Tools
-                    </h1>
-                    <p class="lead">Log, Script, and Validation Utilities</p>
-                </div>
-                
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <div class="mb-3">
-                                    <i class="fas fa-file-code fa-3x text-success"></i>
-                                </div>
-                                <h5 class="card-title">XML Generator</h5>
-                                <p class="card-text">Generate XML messages from predefined templates with dynamic placeholders</p>
-                                <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-success">
-                                    <i class="fas fa-play me-1"></i>Launch Tool
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <div class="mb-3">
-                                    <i class="fas fa-undo fa-3x text-warning"></i>
-                                </div>
-                                <h5 class="card-title">Tran Reversal</h5>
-                                <p class="card-text">Oracle 19c transaction management and reversal via JConsole integration</p>
-                                <a href="{{ url_for('lsv.tran_reversal_home') }}" class="btn btn-warning">
-                                    <i class="fas fa-play me-1"></i>Launch Tool
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <div class="mb-3">
-                                    <i class="fas fa-terminal fa-3x text-secondary"></i>
-                                </div>
-                                <h5 class="card-title text-muted">Script Runner</h5>
-                                <p class="card-text text-muted">Execute and manage application scripts (coming soon)</p>
-                                <button class="btn btn-outline-secondary" disabled>
-                                    <i class="fas fa-construction me-1"></i>Coming Soon
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card h-100">
-                            <div class="card-body text-center">
-                                <div class="mb-3">
-                                    <i class="fas fa-check-circle fa-3x text-secondary"></i>
-                                </div>
-                                <h5 class="card-title text-muted">Validator</h5>
-                                <p class="card-text text-muted">Data validation and integrity checks (coming soon)</p>
-                                <button class="btn btn-outline-secondary" disabled>
-                                    <i class="fas fa-construction me-1"></i>Coming Soon
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-'''
-
-XML_GENERATOR_HOME_TEMPLATE = '''
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XML Generator - LSV</title>
-    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('main_home') }}">
-                <i class="fas fa-tools me-2"></i>
-                ABAssist
-            </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="{{ url_for('lsv.home') }}">
-                    <i class="fas fa-code me-1"></i>LSV
-                </a>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('main_home') }}">
-                                <i class="fas fa-home me-1"></i>ABAssist
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('lsv.home') }}">LSV</a>
-                        </li>
-                        <li class="breadcrumb-item active">XML Generator</li>
-                    </ol>
-                </nav>
-                
-                <div class="text-center mb-5">
-                    <h1 class="display-5">
-                        <i class="fas fa-file-code text-success me-3"></i>
-                        XML Template Generator
-                    </h1>
-                    <p class="lead">Generate XML messages from predefined templates</p>
-                </div>
-                
-                {% if templates %}
-                <div class="card">
-                    <div class="card-header">
-                        <h4><i class="fas fa-list me-2"></i>Available Templates</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="list-group">
-                            {% for template in templates %}
-                            <a href="{{ url_for('lsv.template_form', template_name=template) }}" class="list-group-item list-group-item-action">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h6 class="mb-1">
-                                        <i class="fas fa-file-alt me-2"></i>{{ template }}
-                                    </h6>
-                                    <small><i class="fas fa-arrow-right"></i></small>
-                                </div>
-                                <p class="mb-1 text-muted">Click to generate XML from this template</p>
-                            </a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-                {% else %}
-                <div class="alert alert-warning text-center">
-                    <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
-                    <h4>No Templates Found</h4>
-                    <p>No XML templates were found in the templates folder.</p>
-                    <p class="text-muted">Please add .xml template files to the <code>./xml_templates/</code> directory.</p>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-'''
-
-TEMPLATE_FORM_TEMPLATE = '''
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ template_name }} - XML Generator</title>
-    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('main_home') }}">
-                <i class="fas fa-tools me-2"></i>
-                ABAssist
-            </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="{{ url_for('lsv.home') }}">
-                    <i class="fas fa-code me-1"></i>LSV
-                </a>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('main_home') }}">
-                                <i class="fas fa-home me-1"></i>ABAssist
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('lsv.home') }}">LSV</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('lsv.xml_generator_home') }}">XML Generator</a>
-                        </li>
-                        <li class="breadcrumb-item active">{{ template_name }}</li>
-                    </ol>
-                </nav>
-                
-                <div class="text-center mb-4">
-                    <h2>
-                        <i class="fas fa-file-alt text-success me-2"></i>
-                        {{ template_name }}
-                    </h2>
-                    <p class="text-muted">Fill in the values to generate your XML</p>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header">
-                        <h5><i class="fas fa-edit me-2"></i>Template Variables</h5>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ url_for('lsv.generate_xml', template_name=template_name) }}">
-                            {% for variable in variables %}
-                            <div class="mb-3">
-                                <label for="{{ variable }}" class="form-label">{{ variable.replace('_', ' ').title() }}</label>
-                                <input type="text" class="form-control" id="{{ variable }}" name="{{ variable }}" 
-                                       placeholder="Enter {{ variable.replace('_', ' ').lower() }}" required>
-                            </div>
-                            {% endfor %}
-                            
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-secondary me-md-2">
-                                    <i class="fas fa-arrow-left me-1"></i>Back
-                                </a>
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fas fa-code me-1"></i>Generate XML
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-'''
-
-XML_GENERATED_TEMPLATE = '''
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generated XML - {{ template_name }}</title>
-    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('main_home') }}">
-                <i class="fas fa-tools me-2"></i>
-                ABAssist
-            </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="{{ url_for('lsv.home') }}">
-                    <i class="fas fa-code me-1"></i>LSV
-                </a>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('main_home') }}">
-                                <i class="fas fa-home me-1"></i>ABAssist
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('lsv.home') }}">LSV</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('lsv.xml_generator_home') }}">XML Generator</a>
-                        </li>
-                        <li class="breadcrumb-item active">Generated XML</li>
-                    </ol>
-                </nav>
-                
-                <div class="text-center mb-4">
-                    <h2>
-                        <i class="fas fa-check-circle text-success me-2"></i>
-                        XML Generated Successfully
-                    </h2>
-                    <p class="text-muted">From template: {{ template_name }}</p>
-                </div>
-                
-                <div class="card">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                        <h5><i class="fas fa-code me-2"></i>Generated XML</h5>
-                        <button class="btn btn-outline-primary btn-sm" onclick="copyToClipboard()">
-                            <i class="fas fa-copy me-1"></i>Copy
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <pre class="bg-dark text-light p-3 rounded" id="xmlContent">{{ generated_xml }}</pre>
-                    </div>
-                </div>
-                
-                <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
-                    <a href="{{ url_for('lsv.template_form', template_name=template_name) }}" class="btn btn-secondary me-md-2">
-                        <i class="fas fa-edit me-1"></i>Edit Values
-                    </a>
-                    <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-primary">
-                        <i class="fas fa-list me-1"></i>Choose Another Template
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <script>
-    function copyToClipboard() {
-        const xmlContent = document.getElementById('xmlContent').textContent;
-        navigator.clipboard.writeText(xmlContent).then(function() {
-            // Show success feedback
-            const button = document.querySelector('button[onclick="copyToClipboard()"]');
-            const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-check me-1"></i>Copied!';
-            button.classList.remove('btn-outline-primary');
-            button.classList.add('btn-success');
-            
-            setTimeout(function() {
-                button.innerHTML = originalText;
-                button.classList.remove('btn-success');
-                button.classList.add('btn-outline-primary');
-            }, 2000);
-        });
-    }
-    </script>
-</body>
-</html>
-'''
-
-# Transaction Reversal Templates (keeping them here to avoid duplication)
-TRAN_REVERSAL_HOME_TEMPLATE = '''
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Transaction Reversal - LSV</title>
-    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('main_home') }}">
-                <i class="fas fa-tools me-2"></i>
-                ABAssist
-            </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="{{ url_for('lsv.home') }}">
-                    <i class="fas fa-code me-1"></i>LSV
-                </a>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('main_home') }}">
-                                <i class="fas fa-home me-1"></i>ABAssist
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ url_for('lsv.home') }}">LSV</a>
-                        </li>
-                        <li class="breadcrumb-item active">Transaction Reversal</li>
-                    </ol>
-                </nav>
-                
-                <div class="text-center mb-5">
-                    <h1 class="display-5">
-                        <i class="fas fa-undo text-primary me-3"></i>
-                        Transaction Reversal
-                    </h1>
-                    <p class="lead">Oracle 19c Database Transaction Management</p>
-                </div>
-                
-                {% if error_message %}
-                <div class="alert alert-danger">
-                    <i class="fas fa-exclamation-triangle me-2"></i>
-                    {{ error_message }}
-                </div>
-                {% endif %}
-                
-                <div class="row">
-                    <div class="col-md-12 mb-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4><i class="fas fa-search me-2"></i>Search Transactions</h4>
-                            </div>
-                            <div class="card-body">
-                                <form method="POST" action="{{ url_for('lsv.search_transactions') }}">
-                                    <div class="row">
-                                        <div class="col-md-4 mb-3">
-                                            <label for="txn_id" class="form-label">Transaction ID</label>
-                                            <input type="text" class="form-control" id="txn_id" name="txn_id" 
-                                                   placeholder="Enter transaction ID">
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="account_number" class="form-label">Account Number</label>
-                                            <input type="text" class="form-control" id="account_number" name="account_number" 
-                                                   placeholder="Enter account number">
-                                        </div>
-                                        <div class="col-md-4 mb-3">
-                                            <label for="reference_number" class="form-label">Reference Number</label>
-                                            <input type="text" class="form-control" id="reference_number" name="reference_number" 
-                                                   placeholder="Enter reference number">
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6 mb-3">
-                                            <label for="date_from" class="form-label">Date From</label>
-                                            <input type="date" class="form-control" id="date_from" name="date_from">
-                                        </div>
-                                        <div class="col-md-6 mb-3">
-                                            <label for="date_to" class="form-label">Date To</label>
-                                            <input type="date" class="form-control" id="date_to" name="date_to">
-                                        </div>
-                                    </div>
-                                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                        <button type="submit" class="btn btn-primary">
-                                            <i class="fas fa-search me-1"></i>Search Transactions
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                {% if oracle_available %}
-                <div class="alert alert-info">
-                    <i class="fas fa-info-circle me-2"></i>
-                    Oracle 19c connection is available. You can search for transactions and initiate reversals.
-                </div>
-                {% else %}
-                <div class="alert alert-warning">
-                    <i class="fas fa-exclamation-triangle me-2"></i>
-                    Oracle client libraries are not available. Please configure Oracle connection details in environment variables:
-                    <ul class="mt-2 mb-0">
-                        <li>ORACLE_HOST</li>
-                        <li>ORACLE_PORT</li>
-                        <li>ORACLE_SERVICE_NAME</li>
-                        <li>ORACLE_USERNAME</li>
-                        <li>ORACLE_PASSWORD</li>
-                    </ul>
-                </div>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-'''
 
 # =============================================================================
 # LSV BLUEPRINT ROUTES
@@ -867,14 +350,14 @@ TRAN_REVERSAL_HOME_TEMPLATE = '''
 @lsv_bp.route('/')
 def home():
     """Display LSV sub-application homepage."""
-    return render_template_string(LSV_HOME_TEMPLATE)
+    return render_template('lsv/home.html')
 
 # XML Generator Routes
 @lsv_bp.route('/xml-generator')
 def xml_generator_home():
     """Display XML Template Generator homepage."""
     templates = XMLGeneratorService.get_available_templates()
-    return render_template_string(XML_GENERATOR_HOME_TEMPLATE, templates=templates)
+    return render_template('lsv/xml_generator_home.html', templates=templates)
 
 @lsv_bp.route('/xml-generator/template/<template_name>')
 def template_form(template_name):
@@ -889,9 +372,9 @@ def template_form(template_name):
         # Extract variables
         variables = XMLGeneratorService.extract_jinja_variables(template_content)
         
-        return render_template_string(TEMPLATE_FORM_TEMPLATE, 
-                                      template_name=template_name, 
-                                      variables=variables)
+        return render_template('lsv/template_form.html', 
+                               template_name=template_name, 
+                               variables=variables)
         
     except Exception as e:
         logging.error(f"Error displaying template form: {e}")
@@ -920,9 +403,9 @@ def generate_xml(template_name):
         # Log generation
         XMLGeneratorService.log_generation(template_name, form_data, generated_xml)
         
-        return render_template_string(XML_GENERATED_TEMPLATE, 
-                                      template_name=template_name, 
-                                      generated_xml=generated_xml)
+        return render_template('lsv/xml_generated.html', 
+                               template_name=template_name, 
+                               generated_xml=generated_xml)
         
     except Exception as e:
         logging.error(f"Error generating XML: {e}")
@@ -933,8 +416,8 @@ def generate_xml(template_name):
 @lsv_bp.route('/tran-reversal')
 def tran_reversal_home():
     """Display Transaction Reversal homepage."""
-    return render_template_string(TRAN_REVERSAL_HOME_TEMPLATE, 
-                                  oracle_available=ORACLE_AVAILABLE)
+    return render_template('lsv/tran_reversal_home.html', 
+                           oracle_available=ORACLE_AVAILABLE)
 
 @lsv_bp.route('/tran-reversal/search', methods=['POST'])
 def search_transactions():

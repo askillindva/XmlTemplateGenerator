@@ -8,7 +8,7 @@ ABAssist is a Flask web application platform that serves as a comprehensive tool
 
 Preferred communication style: Simple, everyday language.
 Code organization: Very organized code structure with independent sub-applications for future scalability. Each sub-application should be in separate files (lsv.py, future_app.py) for easy management.
-HTML organization: Well-organized HTML templates for easy navigation and management.
+HTML organization: Well-organized HTML templates in separate folders under templates/ by sub-application for easy navigation and management.
 
 ## System Architecture
 
@@ -27,7 +27,11 @@ The application follows a modular monolithic architecture with a main platform a
 - **Future Tools**: Placeholders for Script Runner and Validator
 
 ### Frontend Architecture
-- **Technology**: Server-side rendered HTML using Flask's render_template_string
+- **Technology**: Server-side rendered HTML using Flask's render_template with organized template files
+- **Template Organization**: HTML templates grouped by sub-application in separate folders:
+  - `templates/main_home.html` - Main ABAssist homepage
+  - `templates/lsv/` - All LSV sub-application templates
+  - `templates/future_app/` - Future sub-application templates
 - **Styling**: Bootstrap-based responsive design with consistent navigation
 - **User Flow**: 
   1. ABAssist homepage displays sub-applications
@@ -136,7 +140,17 @@ CREATE TABLE logs (
 ├── lsv.py                # LSV sub-application (XML Generator & Transaction Reversal)
 ├── future_app.py         # Template for future sub-applications
 ├── actions.db            # SQLite database (auto-created)
-└── xml_templates/        # Template directory
+├── templates/            # HTML templates organized by sub-application
+│   ├── main_home.html    # Main ABAssist homepage
+│   ├── lsv/              # LSV sub-application templates
+│   │   ├── home.html
+│   │   ├── xml_generator_home.html
+│   │   ├── template_form.html
+│   │   ├── xml_generated.html
+│   │   └── tran_reversal_home.html
+│   └── future_app/       # Future sub-application templates
+│       └── home.html
+└── xml_templates/        # XML template directory
     ├── template1.xml
     └── template2.xml
 ```
