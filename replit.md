@@ -7,7 +7,7 @@ ABAssist is a Flask web application platform that serves as a comprehensive tool
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
-Code organization: Very organized code structure with independent sub-applications for future scalability.
+Code organization: Very organized code structure with independent sub-applications for future scalability. Each sub-application should be in separate files (lsv.py, future_app.py) for easy management.
 HTML organization: Well-organized HTML templates for easy navigation and management.
 
 ## System Architecture
@@ -37,10 +37,13 @@ The application follows a modular monolithic architecture with a main platform a
   5. Form submission generates XML output with copy-to-clipboard functionality
 
 ### Backend Architecture
-- **Framework**: Flask (Python micro-framework)
-- **Structure**: Single-file application (app.py) with organized service classes and modular route organization
-- **Code Organization**: Service classes for each sub-application (XMLGeneratorService, TransactionReversalService)
-- **Template Organization**: HTML templates grouped by sub-application with clear section headers
+- **Framework**: Flask (Python micro-framework) with Blueprint pattern
+- **Structure**: Modular architecture with separate files for each sub-application
+  - `app.py`: Main application and homepage routes only
+  - `lsv.py`: Complete LSV sub-application (XML Generator and Transaction Reversal)
+  - `future_app.py`: Template for future sub-applications
+- **Code Organization**: Service classes within each sub-application file for better maintainability
+- **Blueprint Registration**: Each sub-application registered as Flask Blueprint for independent management
 - **Route Structure**: Hierarchical URLs matching navigation structure:
   - `/` - ABAssist main homepage
   - `/lsv` - LSV sub-application homepage  
@@ -129,7 +132,9 @@ CREATE TABLE logs (
 ### File Structure
 ```
 .
-├── app.py                 # Main application file
+├── app.py                 # Main application and homepage only
+├── lsv.py                # LSV sub-application (XML Generator & Transaction Reversal)
+├── future_app.py         # Template for future sub-applications
 ├── actions.db            # SQLite database (auto-created)
 └── xml_templates/        # Template directory
     ├── template1.xml
