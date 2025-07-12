@@ -110,7 +110,14 @@ The application follows a modular monolithic architecture with a main platform a
 - **requests**: HTTP library for external service calls
 - **subprocess**: For JConsole integration
 - **jinja2**: Template engine for XML generation
+- **python-dotenv**: Environment variable management
+- **gunicorn**: Production WSGI server
 - **os, json, re, logging, datetime**: Standard library modules
+
+### Configuration Files
+- **.env**: Environment variables for credentials and configuration
+- **dependencies.txt**: Python package dependencies list
+- **README.md**: Complete setup and usage documentation
 
 ### Template Requirements
 - XML files must contain Jinja2-style placeholders: `{{ variable_name }}`

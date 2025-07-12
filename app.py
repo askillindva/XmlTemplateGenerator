@@ -2,8 +2,12 @@ import os
 import sqlite3
 import logging
 from flask import Flask, render_template, render_template_string
+from dotenv import load_dotenv
 from lsv import lsv_bp
 from future_app import future_app_bp
+
+# Load environment variables from .env file
+load_dotenv()
 
 # =============================================================================
 # APPLICATION CONFIGURATION
@@ -16,8 +20,12 @@ logging.basicConfig(level=logging.DEBUG)
 app = Flask(__name__)
 app.secret_key = os.environ.get("SESSION_SECRET", "dev-secret-key-change-in-production")
 
+# Load configuration from environment variables
+app.config['FLASK_ENV'] = os.environ.get('FLASK_ENV', 'development')
+app.config['FLASK_DEBUG'] = os.environ.get('FLASK_DEBUG', 'True').lower() == 'true'
+
 # Database configuration
-DATABASE_PATH = 'actions.db'
+DATABASE_PATH = os.environ.get('DATABASE_URL', 'sqlite:///actions.db').replace('sqlite:///', '')
 
 # =============================================================================
 # SHARED UTILITIES & DATABASE FUNCTIONS

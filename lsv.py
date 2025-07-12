@@ -6,6 +6,11 @@ import logging
 import subprocess
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 try:
     import cx_Oracle
     ORACLE_AVAILABLE = True
@@ -20,8 +25,8 @@ except ImportError:
 lsv_bp = Blueprint('lsv', __name__, url_prefix='/lsv')
 
 # Database configuration
-DATABASE_PATH = 'actions.db'
-TEMPLATES_FOLDER = './xml_templates/'
+DATABASE_PATH = os.environ.get('DATABASE_URL', 'sqlite:///actions.db').replace('sqlite:///', '')
+TEMPLATES_FOLDER = os.environ.get('XML_TEMPLATES_PATH', './xml_templates/')
 
 # =============================================================================
 # LSV SUB-APPLICATION: XML TEMPLATE GENERATOR SERVICE
