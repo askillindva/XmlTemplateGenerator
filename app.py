@@ -102,23 +102,260 @@ def log_generation(template_name, submitted_data, generated_xml):
         logging.error(f"Error logging to database: {e}")
 
 # HTML Templates
-HOME_TEMPLATE = '''
+MAIN_HOME_TEMPLATE = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XML Template Generator</title>
+    <title>ABAssist - Application Support Platform</title>
     <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main_home') }}">
+                <i class="fas fa-tools me-2"></i>
+                ABAssist
+            </a>
+        </div>
+    </nav>
+    
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="text-center mb-5">
                     <h1 class="display-4">
+                        <i class="fas fa-tools text-primary me-3"></i>
+                        ABAssist
+                    </h1>
+                    <p class="lead">Application Support and Reliability Engineering Platform</p>
+                    <p class="text-muted">Tools and utilities for engineering teams</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="mb-3">
+                                    <i class="fas fa-code fa-3x text-primary"></i>
+                                </div>
+                                <h4 class="card-title">LSV</h4>
+                                <p class="card-text">Log, Script, and Validation tools for application support operations</p>
+                                <a href="{{ url_for('lsv_home') }}" class="btn btn-primary">
+                                    <i class="fas fa-arrow-right me-1"></i>Enter LSV
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body text-center">
+                                <div class="mb-3">
+                                    <i class="fas fa-cogs fa-3x text-secondary"></i>
+                                </div>
+                                <h4 class="card-title">Coming Soon</h4>
+                                <p class="card-text">Additional support tools and utilities will be available here</p>
+                                <button class="btn btn-secondary" disabled>
+                                    <i class="fas fa-clock me-1"></i>In Development
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+'''
+
+LSV_HOME_TEMPLATE = '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSV - Log, Script & Validation Tools</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main_home') }}">
+                <i class="fas fa-tools me-2"></i>
+                ABAssist
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ url_for('lsv_home') }}">
+                    <i class="fas fa-code me-1"></i>LSV
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('main_home') }}">
+                                <i class="fas fa-home me-1"></i>ABAssist
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item active">LSV</li>
+                    </ol>
+                </nav>
+                
+                <div class="text-center mb-5">
+                    <h1 class="display-5">
                         <i class="fas fa-code text-primary me-3"></i>
+                        LSV
+                    </h1>
+                    <p class="lead">Log, Script & Validation Tools</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-file-code fa-2x text-primary me-3"></i>
+                                    <div>
+                                        <h4 class="card-title mb-0">XML Template Generator</h4>
+                                        <small class="text-muted">Generate XML messages from templates</small>
+                                    </div>
+                                </div>
+                                <p class="card-text">Create XML messages using predefined templates with dynamic form generation and automatic variable replacement.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <a href="{{ url_for('xml_generator_home') }}" class="btn btn-primary">
+                                        <i class="fas fa-play me-1"></i>Launch Tool
+                                    </a>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-search fa-2x text-secondary me-3"></i>
+                                    <div>
+                                        <h4 class="card-title mb-0">Log Analyzer</h4>
+                                        <small class="text-muted">Analyze application logs</small>
+                                    </div>
+                                </div>
+                                <p class="card-text">Parse and analyze application logs for troubleshooting and monitoring purposes.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-secondary" disabled>
+                                        <i class="fas fa-clock me-1"></i>Coming Soon
+                                    </button>
+                                    <span class="badge bg-warning">Planned</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-terminal fa-2x text-secondary me-3"></i>
+                                    <div>
+                                        <h4 class="card-title mb-0">Script Runner</h4>
+                                        <small class="text-muted">Execute maintenance scripts</small>
+                                    </div>
+                                </div>
+                                <p class="card-text">Run predefined maintenance and troubleshooting scripts with guided parameters.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-secondary" disabled>
+                                        <i class="fas fa-clock me-1"></i>Coming Soon
+                                    </button>
+                                    <span class="badge bg-warning">Planned</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <i class="fas fa-check-circle fa-2x text-secondary me-3"></i>
+                                    <div>
+                                        <h4 class="card-title mb-0">Validator</h4>
+                                        <small class="text-muted">Validate configurations</small>
+                                    </div>
+                                </div>
+                                <p class="card-text">Validate application configurations, data formats, and system states.</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <button class="btn btn-secondary" disabled>
+                                        <i class="fas fa-clock me-1"></i>Coming Soon
+                                    </button>
+                                    <span class="badge bg-warning">Planned</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+'''
+
+XML_GENERATOR_HOME_TEMPLATE = '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML Template Generator - LSV</title>
+    <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main_home') }}">
+                <i class="fas fa-tools me-2"></i>
+                ABAssist
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ url_for('lsv_home') }}">
+                    <i class="fas fa-code me-1"></i>LSV
+                </a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('main_home') }}">
+                                <i class="fas fa-home me-1"></i>ABAssist
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('lsv_home') }}">LSV</a>
+                        </li>
+                        <li class="breadcrumb-item active">XML Template Generator</li>
+                    </ol>
+                </nav>
+                
+                <div class="text-center mb-5">
+                    <h1 class="display-5">
+                        <i class="fas fa-file-code text-primary me-3"></i>
                         XML Template Generator
                     </h1>
                     <p class="lead">Generate XML messages from predefined templates</p>
@@ -127,7 +364,7 @@ HOME_TEMPLATE = '''
                 {% if templates %}
                     <div class="card">
                         <div class="card-header">
-                            <h3><i class="fas fa-file-code me-2"></i>Available Templates</h3>
+                            <h3><i class="fas fa-list me-2"></i>Available Templates</h3>
                         </div>
                         <div class="card-body">
                             <div class="list-group">
@@ -170,15 +407,35 @@ FORM_TEMPLATE = '''
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main_home') }}">
+                <i class="fas fa-tools me-2"></i>
+                ABAssist
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ url_for('lsv_home') }}">
+                    <i class="fas fa-code me-1"></i>LSV
+                </a>
+            </div>
+        </div>
+    </nav>
+    
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="{{ url_for('home') }}">
-                                <i class="fas fa-home me-1"></i>Home
+                            <a href="{{ url_for('main_home') }}">
+                                <i class="fas fa-home me-1"></i>ABAssist
                             </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('lsv_home') }}">LSV</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('xml_generator_home') }}">XML Generator</a>
                         </li>
                         <li class="breadcrumb-item active">{{ template_name }}</li>
                     </ol>
@@ -212,7 +469,7 @@ FORM_TEMPLATE = '''
                                 </div>
                                 
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                    <a href="{{ url_for('home') }}" class="btn btn-secondary me-md-2">
+                                    <a href="{{ url_for('xml_generator_home') }}" class="btn btn-secondary me-md-2">
                                         <i class="fas fa-arrow-left me-1"></i>Back
                                     </a>
                                     <button type="submit" class="btn btn-primary">
@@ -227,7 +484,7 @@ FORM_TEMPLATE = '''
                             </div>
                             <form method="POST" action="{{ url_for('generate_xml', template_name=template_name) }}">
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a href="{{ url_for('home') }}" class="btn btn-secondary me-md-2">
+                                    <a href="{{ url_for('xml_generator_home') }}" class="btn btn-secondary me-md-2">
                                         <i class="fas fa-arrow-left me-1"></i>Back
                                     </a>
                                     <button type="submit" class="btn btn-primary">
@@ -269,15 +526,35 @@ RESULT_TEMPLATE = '''
     </style>
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('main_home') }}">
+                <i class="fas fa-tools me-2"></i>
+                ABAssist
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ url_for('lsv_home') }}">
+                    <i class="fas fa-code me-1"></i>LSV
+                </a>
+            </div>
+        </div>
+    </nav>
+    
     <div class="container mt-4">
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="{{ url_for('home') }}">
-                                <i class="fas fa-home me-1"></i>Home
+                            <a href="{{ url_for('main_home') }}">
+                                <i class="fas fa-home me-1"></i>ABAssist
                             </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('lsv_home') }}">LSV</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ url_for('xml_generator_home') }}">XML Generator</a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="{{ url_for('template_form', template_name=template_name) }}">
@@ -306,8 +583,8 @@ RESULT_TEMPLATE = '''
                                class="btn btn-secondary me-md-2">
                                 <i class="fas fa-edit me-1"></i>Generate Another
                             </a>
-                            <a href="{{ url_for('home') }}" class="btn btn-primary">
-                                <i class="fas fa-home me-1"></i>Back to Templates
+                            <a href="{{ url_for('xml_generator_home') }}" class="btn btn-primary">
+                                <i class="fas fa-list me-1"></i>Back to Templates
                             </a>
                         </div>
                     </div>
@@ -361,24 +638,40 @@ RESULT_TEMPLATE = '''
 
 # Routes
 @app.route('/')
-def home():
-    """Display homepage with available templates."""
-    templates = get_available_templates()
-    return render_template_string(HOME_TEMPLATE, templates=templates)
+def main_home():
+    """Display main ABAssist homepage."""
+    return render_template_string(MAIN_HOME_TEMPLATE)
 
-@app.route('/template/<template_name>')
+@app.route('/lsv')
+def lsv_home():
+    """Display LSV sub-application homepage."""
+    return render_template_string(LSV_HOME_TEMPLATE)
+
+@app.route('/lsv/xml-generator')
+def xml_generator_home():
+    """Display XML Template Generator homepage."""
+    templates = get_available_templates()
+    return render_template_string(XML_GENERATOR_HOME_TEMPLATE, templates=templates)
+
+# Legacy route for backward compatibility
+@app.route('/home')
+def home():
+    """Legacy route - redirect to XML generator."""
+    return redirect(url_for('xml_generator_home'))
+
+@app.route('/lsv/xml-generator/template/<template_name>')
 def template_form(template_name):
     """Display form for the selected template."""
     # Validate template exists
     if template_name not in get_available_templates():
         flash(f'Template "{template_name}" not found.', 'error')
-        return redirect(url_for('home'))
+        return redirect(url_for('xml_generator_home'))
     
     # Read template content and extract variables
     content = read_template_content(template_name)
     if content is None:
         flash(f'Error reading template "{template_name}".', 'error')
-        return redirect(url_for('home'))
+        return redirect(url_for('xml_generator_home'))
     
     variables = extract_jinja_variables(content)
     
@@ -386,19 +679,19 @@ def template_form(template_name):
                                   template_name=template_name, 
                                   variables=variables)
 
-@app.route('/generate/<template_name>', methods=['POST'])
+@app.route('/lsv/xml-generator/generate/<template_name>', methods=['POST'])
 def generate_xml(template_name):
     """Generate XML from template and form data."""
     # Validate template exists
     if template_name not in get_available_templates():
         flash(f'Template "{template_name}" not found.', 'error')
-        return redirect(url_for('home'))
+        return redirect(url_for('xml_generator_home'))
     
     # Read template content
     content = read_template_content(template_name)
     if content is None:
         flash(f'Error reading template "{template_name}".', 'error')
-        return redirect(url_for('home'))
+        return redirect(url_for('xml_generator_home'))
     
     # Get form data
     form_data = dict(request.form)
@@ -423,7 +716,7 @@ def not_found_error(error):
     return render_template_string('''
     <div class="container mt-5 text-center">
         <h1>404 - Page Not Found</h1>
-        <p><a href="{{ url_for('home') }}" class="btn btn-primary">Go Home</a></p>
+        <p><a href="{{ url_for('main_home') }}" class="btn btn-primary">Go Home</a></p>
     </div>
     '''), 404
 
@@ -434,15 +727,16 @@ def internal_error(error):
     <div class="container mt-5 text-center">
         <h1>500 - Internal Server Error</h1>
         <p>Something went wrong. Please try again.</p>
-        <p><a href="{{ url_for('home') }}" class="btn btn-primary">Go Home</a></p>
+        <p><a href="{{ url_for('main_home') }}" class="btn btn-primary">Go Home</a></p>
     </div>
     '''), 500
+
+# Initialize database on app startup
+init_database()
 
 if __name__ == '__main__':
     # Create templates folder if it doesn't exist
     os.makedirs(TEMPLATES_FOLDER, exist_ok=True)
-    
-    # Initialize database
     init_database()
     
     # Run the application

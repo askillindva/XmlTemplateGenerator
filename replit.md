@@ -1,8 +1,8 @@
-# XML Template Generator
+# ABAssist - Application Support Platform
 
 ## Overview
 
-This is a Flask web application that generates XML messages from predefined templates using dynamic form creation and SQLite logging. The application scans XML template files containing Jinja2 placeholders, creates forms for user input, and generates populated XML messages while logging all activities to a database.
+ABAssist is a Flask web application platform that serves as a comprehensive toolkit for Application Support and Reliability Engineers. The platform includes sub-applications organized by functionality, with LSV (Log, Script & Validation) as the primary sub-application containing the XML Template Generator and other support tools.
 
 ## User Preferences
 
@@ -10,19 +10,38 @@ Preferred communication style: Simple, everyday language.
 
 ## System Architecture
 
-The application follows a simple monolithic architecture with the following layers:
+The application follows a modular monolithic architecture with a main platform and organized sub-applications:
+
+### Main Platform Architecture
+- **ABAssist Homepage**: Main entry point displaying available sub-applications
+- **Navigation Structure**: Hierarchical navigation with breadcrumbs
+  - ABAssist (Main) → LSV (Sub-app) → XML Generator (Tool)
+- **Sub-Application Framework**: Modular design allowing future expansion
+
+### LSV Sub-Application Architecture
+- **LSV Dashboard**: Tool selection interface for log/script/validation utilities
+- **XML Template Generator**: Core functionality for XML message generation
+- **Future Tools**: Placeholders for Log Analyzer, Script Runner, and Validator
 
 ### Frontend Architecture
 - **Technology**: Server-side rendered HTML using Flask's render_template_string
-- **Styling**: Bootstrap-based responsive design for clean UI
+- **Styling**: Bootstrap-based responsive design with consistent navigation
 - **User Flow**: 
-  1. Homepage displays available XML templates
-  2. Template selection leads to dynamic form generation
-  3. Form submission generates XML output with copy-to-clipboard functionality
+  1. ABAssist homepage displays sub-applications
+  2. LSV homepage shows available tools
+  3. XML Generator displays available templates
+  4. Template selection leads to dynamic form generation
+  5. Form submission generates XML output with copy-to-clipboard functionality
 
 ### Backend Architecture
 - **Framework**: Flask (Python micro-framework)
-- **Structure**: Single-file application (app.py) containing all logic
+- **Structure**: Single-file application (app.py) with modular route organization
+- **Route Structure**: Hierarchical URLs matching navigation structure:
+  - `/` - ABAssist main homepage
+  - `/lsv` - LSV sub-application homepage  
+  - `/lsv/xml-generator` - XML Template Generator tool
+  - `/lsv/xml-generator/template/<name>` - Template form pages
+  - `/lsv/xml-generator/generate/<name>` - XML generation endpoints
 - **Template Processing**: Jinja2 template engine for XML generation
 - **Pattern Matching**: Regular expressions to extract placeholders from XML templates
 
