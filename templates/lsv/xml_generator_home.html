@@ -3,70 +3,46 @@
 {% block title %}XML Generator - LSV{% endblock %}
 
 {% block nav_items %}
-<a class="nav-link" href="{{ url_for('lsv.home') }}">
-    <i class="fas fa-code me-1"></i>LSV
-</a>
-<a class="nav-link" href="{{ url_for('future_app.home') }}">
-    <i class="fas fa-rocket me-1"></i>Future App
-</a>
+<a class="nav-link" href="{{ url_for('main_home') }}">Home</a>
+<a class="nav-link" href="{{ url_for('lsv.home') }}">LSV</a>
+<a class="nav-link" href="{{ url_for('future_app.home') }}">Future App</a>
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ url_for('main_home') }}">
-                            <i class="fas fa-home me-1"></i>ABAssist
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="{{ url_for('lsv.home') }}">LSV</a>
-                    </li>
-                    <li class="breadcrumb-item active">XML Generator</li>
-                </ol>
-            </nav>
-            
-            <div class="text-center mb-5">
-                <h1 class="display-5">
-                    <i class="fas fa-file-code text-success me-3"></i>
-                    XML Template Generator
-                </h1>
-                <p class="lead">Generate XML messages from predefined templates</p>
+<h1 class="display-5 mb-4">
+    <i class="fas fa-file-code text-success me-3"></i>
+    XML Template Generator
+</h1>
+<p class="lead mb-5">Generate XML messages from predefined templates</p>
+
+{% if templates %}
+<div class="list-group mb-4">
+    {% for template in templates %}
+    <a href="{{ url_for('lsv.template_form', template_name=template) }}" class="list-group-item list-group-item-action list-group-item-dark">
+        <div class="d-flex w-100 justify-content-between align-items-center">
+            <div>
+                <h6 class="mb-1">
+                    <i class="fas fa-file-alt me-2"></i>{{ template }}
+                </h6>
+                <small class="text-muted">Click to generate XML from this template</small>
             </div>
-            
-            {% if templates %}
-            <div class="card">
-                <div class="card-header">
-                    <h4><i class="fas fa-list me-2"></i>Available Templates</h4>
-                </div>
-                <div class="card-body">
-                    <div class="list-group">
-                        {% for template in templates %}
-                        <a href="{{ url_for('lsv.template_form', template_name=template) }}" class="list-group-item list-group-item-action">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h6 class="mb-1">
-                                    <i class="fas fa-file-alt me-2"></i>{{ template }}
-                                </h6>
-                                <small><i class="fas fa-arrow-right"></i></small>
-                            </div>
-                            <p class="mb-1 text-muted">Click to generate XML from this template</p>
-                        </a>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-            {% else %}
-            <div class="alert alert-warning text-center">
-                <i class="fas fa-exclamation-triangle fa-2x mb-3"></i>
-                <h4>No Templates Found</h4>
-                <p>No XML templates were found in the templates folder.</p>
-                <p class="text-muted">Please add .xml template files to the <code>./xml_templates/</code> directory.</p>
-            </div>
-            {% endif %}
+            <i class="fas fa-arrow-right"></i>
         </div>
-    </div>
+    </a>
+    {% endfor %}
 </div>
+{% else %}
+<div class="hero-section text-center">
+    <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
+    <h4>No Templates Found</h4>
+    <p class="mb-0">No XML templates were found in the templates folder.</p>
+    <small class="text-muted">Please add .xml template files to the <code>./xml_templates/</code> directory.</small>
+</div>
+{% endif %}
+
+<p class="text-center mt-4">
+    <a href="{{ url_for('lsv.home') }}" class="btn btn-outline-light">
+        <i class="fas fa-arrow-left me-1"></i>Back to LSV Tools
+    </a>
+</p>
 {% endblock %}

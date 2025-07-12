@@ -3,97 +3,75 @@
 {% block title %}LSV - Application Support Tools{% endblock %}
 
 {% block nav_items %}
-<a class="nav-link active" href="{{ url_for('lsv.home') }}">
-    <i class="fas fa-code me-1"></i>LSV
-</a>
-<a class="nav-link" href="{{ url_for('future_app.home') }}">
-    <i class="fas fa-rocket me-1"></i>Future App
-</a>
+<a class="nav-link" href="{{ url_for('main_home') }}">Home</a>
+<a class="nav-link active" href="{{ url_for('lsv.home') }}">LSV</a>
+<a class="nav-link" href="{{ url_for('future_app.home') }}">Future App</a>
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ url_for('main_home') }}">
-                            <i class="fas fa-home me-1"></i>ABAssist
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item active">LSV</li>
-                </ol>
-            </nav>
-            
-            <div class="text-center mb-5">
-                <h1 class="display-5">
-                    <i class="fas fa-code text-primary me-3"></i>
-                    LSV Tools
-                </h1>
-                <p class="lead">Log, Script, and Validation Utilities</p>
+<h1 class="display-5 mb-4">
+    <i class="fas fa-code text-primary me-3"></i>
+    LSV Tools
+</h1>
+<p class="lead mb-5">Log, Script, and Validation Utilities</p>
+
+<div class="row text-start">
+    <div class="col-md-6 mb-4">
+        <div class="p-3 border rounded bg-dark bg-opacity-25">
+            <div class="text-center mb-3">
+                <i class="fas fa-file-code fa-3x text-success"></i>
             </div>
-            
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <div class="mb-3">
-                                <i class="fas fa-file-code fa-3x text-success"></i>
-                            </div>
-                            <h5 class="card-title">XML Generator</h5>
-                            <p class="card-text">Generate XML messages from predefined templates with dynamic placeholders</p>
-                            <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-success">
-                                <i class="fas fa-play me-1"></i>Launch Tool
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <div class="mb-3">
-                                <i class="fas fa-undo fa-3x text-warning"></i>
-                            </div>
-                            <h5 class="card-title">Tran Reversal</h5>
-                            <p class="card-text">Oracle 19c transaction management and reversal via JConsole integration</p>
-                            <a href="{{ url_for('lsv.tran_reversal_home') }}" class="btn btn-warning">
-                                <i class="fas fa-play me-1"></i>Launch Tool
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <div class="mb-3">
-                                <i class="fas fa-terminal fa-3x text-secondary"></i>
-                            </div>
-                            <h5 class="card-title text-muted">Script Runner</h5>
-                            <p class="card-text text-muted">Execute and manage application scripts (coming soon)</p>
-                            <button class="btn btn-outline-secondary" disabled>
-                                <i class="fas fa-construction me-1"></i>Coming Soon
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body text-center">
-                            <div class="mb-3">
-                                <i class="fas fa-check-circle fa-3x text-secondary"></i>
-                            </div>
-                            <h5 class="card-title text-muted">Validator</h5>
-                            <p class="card-text text-muted">Data validation and integrity checks (coming soon)</p>
-                            <button class="btn btn-outline-secondary" disabled>
-                                <i class="fas fa-construction me-1"></i>Coming Soon
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            <h5 class="text-center">XML Generator</h5>
+            <p class="small">Generate XML messages from predefined templates with dynamic placeholders</p>
+            <div class="text-center">
+                <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-outline-light btn-sm">
+                    <i class="fas fa-play me-1"></i>Launch Tool
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="p-3 border rounded bg-dark bg-opacity-25">
+            <div class="text-center mb-3">
+                <i class="fas fa-undo fa-3x text-warning"></i>
+            </div>
+            <h5 class="text-center">Transaction Reversal</h5>
+            <p class="small">Oracle 19c transaction management and reversal via JConsole integration</p>
+            <div class="text-center">
+                <a href="{{ url_for('lsv.tran_reversal_home') }}" class="btn btn-outline-light btn-sm">
+                    <i class="fas fa-play me-1"></i>Launch Tool
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="p-3 border rounded bg-dark bg-opacity-10">
+            <div class="text-center mb-3">
+                <i class="fas fa-terminal fa-3x text-muted"></i>
+            </div>
+            <h5 class="text-center text-muted">Script Runner</h5>
+            <p class="small text-muted">Execute and manage application scripts (coming soon)</p>
+            <div class="text-center">
+                <button class="btn btn-outline-secondary btn-sm" disabled>
+                    <i class="fas fa-construction me-1"></i>Coming Soon
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-4">
+        <div class="p-3 border rounded bg-dark bg-opacity-10">
+            <div class="text-center mb-3">
+                <i class="fas fa-check-circle fa-3x text-muted"></i>
+            </div>
+            <h5 class="text-center text-muted">Validator</h5>
+            <p class="small text-muted">Data validation and integrity checks (coming soon)</p>
+            <div class="text-center">
+                <button class="btn btn-outline-secondary btn-sm" disabled>
+                    <i class="fas fa-construction me-1"></i>Coming Soon
+                </button>
             </div>
         </div>
     </div>

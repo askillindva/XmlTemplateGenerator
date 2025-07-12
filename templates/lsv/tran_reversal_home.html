@@ -3,112 +3,79 @@
 {% block title %}Transaction Reversal - LSV{% endblock %}
 
 {% block nav_items %}
-<a class="nav-link" href="{{ url_for('lsv.home') }}">
-    <i class="fas fa-code me-1"></i>LSV
-</a>
-<a class="nav-link" href="{{ url_for('future_app.home') }}">
-    <i class="fas fa-rocket me-1"></i>Future App
-</a>
+<a class="nav-link" href="{{ url_for('main_home') }}">Home</a>
+<a class="nav-link" href="{{ url_for('lsv.home') }}">LSV</a>
+<a class="nav-link" href="{{ url_for('future_app.home') }}">Future App</a>
 {% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ url_for('main_home') }}">
-                            <i class="fas fa-home me-1"></i>ABAssist
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="{{ url_for('lsv.home') }}">LSV</a>
-                    </li>
-                    <li class="breadcrumb-item active">Transaction Reversal</li>
-                </ol>
-            </nav>
-            
-            <div class="text-center mb-5">
-                <h1 class="display-5">
-                    <i class="fas fa-undo text-primary me-3"></i>
-                    Transaction Reversal
-                </h1>
-                <p class="lead">Oracle 19c Database Transaction Management</p>
-            </div>
-            
-            {% if error_message %}
-            <div class="alert alert-danger">
-                <i class="fas fa-exclamation-triangle me-2"></i>
-                {{ error_message }}
-            </div>
-            {% endif %}
-            
-            <div class="row">
-                <div class="col-md-12 mb-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4><i class="fas fa-search me-2"></i>Search Transactions</h4>
-                        </div>
-                        <div class="card-body">
-                            <form method="POST" action="{{ url_for('lsv.search_transactions') }}">
-                                <div class="row">
-                                    <div class="col-md-4 mb-3">
-                                        <label for="txn_id" class="form-label">Transaction ID</label>
-                                        <input type="text" class="form-control" id="txn_id" name="txn_id" 
-                                               placeholder="Enter transaction ID">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="account_number" class="form-label">Account Number</label>
-                                        <input type="text" class="form-control" id="account_number" name="account_number" 
-                                               placeholder="Enter account number">
-                                    </div>
-                                    <div class="col-md-4 mb-3">
-                                        <label for="reference_number" class="form-label">Reference Number</label>
-                                        <input type="text" class="form-control" id="reference_number" name="reference_number" 
-                                               placeholder="Enter reference number">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="date_from" class="form-label">Date From</label>
-                                        <input type="date" class="form-control" id="date_from" name="date_from">
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <label for="date_to" class="form-label">Date To</label>
-                                        <input type="date" class="form-control" id="date_to" name="date_to">
-                                    </div>
-                                </div>
-                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <button type="submit" class="btn btn-primary">
-                                        <i class="fas fa-search me-1"></i>Search Transactions
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            {% if oracle_available %}
-            <div class="alert alert-info">
-                <i class="fas fa-info-circle me-2"></i>
-                Oracle 19c connection is available. You can search for transactions and initiate reversals.
-            </div>
-            {% else %}
-            <div class="alert alert-warning">
-                <i class="fas fa-exclamation-triangle me-2"></i>
-                Oracle client libraries are not available. Please configure Oracle connection details in environment variables:
-                <ul class="mt-2 mb-0">
-                    <li>ORACLE_HOST</li>
-                    <li>ORACLE_PORT</li>
-                    <li>ORACLE_SERVICE_NAME</li>
-                    <li>ORACLE_USERNAME</li>
-                    <li>ORACLE_PASSWORD</li>
-                </ul>
-            </div>
-            {% endif %}
-        </div>
-    </div>
+<h1 class="display-5 mb-4">
+    <i class="fas fa-undo text-warning me-3"></i>
+    Transaction Reversal
+</h1>
+<p class="lead mb-5">Oracle 19c Database Transaction Management</p>
+
+{% if error_message %}
+<div class="alert alert-danger">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    {{ error_message }}
 </div>
+{% endif %}
+
+<div class="hero-section text-start">
+    <h4><i class="fas fa-search me-2"></i>Search Transactions</h4>
+    <form method="POST" action="{{ url_for('lsv.search_transactions') }}" class="mt-4">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="txn_id" class="form-label text-white fw-bold">Transaction ID</label>
+                <input type="text" class="form-control" id="txn_id" name="txn_id" 
+                       placeholder="Enter transaction ID">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="account_number" class="form-label text-white fw-bold">Account Number</label>
+                <input type="text" class="form-control" id="account_number" name="account_number" 
+                       placeholder="Enter account number">
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="reference_number" class="form-label text-white fw-bold">Reference Number</label>
+                <input type="text" class="form-control" id="reference_number" name="reference_number" 
+                       placeholder="Enter reference number">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="date_from" class="form-label text-white fw-bold">Date From</label>
+                <input type="date" class="form-control" id="date_from" name="date_from">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="date_to" class="form-label text-white fw-bold">Date To</label>
+                <input type="date" class="form-control" id="date_to" name="date_to">
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-light btn-lg">
+                <i class="fas fa-search me-1"></i>Search Transactions
+            </button>
+        </div>
+    </form>
+</div>
+
+{% if oracle_available %}
+<div class="alert alert-info mt-4">
+    <i class="fas fa-info-circle me-2"></i>
+    Oracle 19c connection is available. You can search for transactions and initiate reversals.
+</div>
+{% else %}
+<div class="alert alert-warning mt-4">
+    <i class="fas fa-exclamation-triangle me-2"></i>
+    Oracle client libraries are not available. Please configure Oracle connection details in environment variables:
+    <small class="d-block mt-2">ORACLE_HOST, ORACLE_PORT, ORACLE_SERVICE_NAME, ORACLE_USERNAME, ORACLE_PASSWORD</small>
+</div>
+{% endif %}
+
+<p class="text-center mt-4">
+    <a href="{{ url_for('lsv.home') }}" class="btn btn-outline-light">
+        <i class="fas fa-arrow-left me-1"></i>Back to LSV Tools
+    </a>
+</p>
 {% endblock %}

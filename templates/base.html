@@ -1,88 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}ABAssist - Application Support Platform{% endblock %}</title>
     <link href="https://cdn.replit.com/agent/bootstrap-agent-dark-theme.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        /*
+         * Globals
+         */
+        /* Links */
+        a,
+        a:focus,
+        a:hover {
+            color: #fff;
+        }
+
+        /* Custom default button */
+        .btn-secondary,
+        .btn-secondary:hover,
+        .btn-secondary:focus {
+            color: #333;
+            text-shadow: none; /* Prevent inheritance from `body` */
+        }
+
+        /*
+         * Base structure
+         */
+        body {
+            text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+            box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+        }
+
+        .cover-container {
+            max-width: 42em;
+        }
+
+        /*
+         * Header
+         */
+        .masthead {
+            margin-bottom: 2rem;
+        }
+
+        .masthead-brand {
+            margin-bottom: 0;
+        }
+
+        .nav-masthead .nav-link {
+            padding: .25rem 0;
+            font-weight: 700;
+            color: rgba(255, 255, 255, .5);
+            background-color: transparent;
+            border-bottom: .25rem solid transparent;
+        }
+
+        .nav-masthead .nav-link:hover,
+        .nav-masthead .nav-link:focus {
+            border-bottom-color: rgba(255, 255, 255, .25);
+        }
+
+        .nav-masthead .nav-link + .nav-link {
+            margin-left: 1rem;
+        }
+
+        .nav-masthead .active {
+            color: #fff;
+            border-bottom-color: #fff;
+        }
+
+        .content-wrapper {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 1rem 0;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-section {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 1rem;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(5px);
+        }
+
+        {% block page_style %}{% endblock %}
+    </style>
+    
     {% block extra_head %}{% endblock %}
 </head>
-<body class="d-flex flex-column min-vh-100">
-    <!-- Header -->
-    <header class="bg-primary text-white">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand fw-bold" href="{{ url_for('main_home') }}">
-                    <i class="fas fa-tools me-2"></i>
-                    ABAssist
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <div class="navbar-nav ms-auto">
-                        {% block nav_items %}
-                        <a class="nav-link" href="{{ url_for('lsv.home') }}">
-                            <i class="fas fa-code me-1"></i>LSV
-                        </a>
-                        <a class="nav-link" href="{{ url_for('future_app.home') }}">
-                            <i class="fas fa-rocket me-1"></i>Future App
-                        </a>
-                        {% endblock %}
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
 
-    <!-- Main Content -->
-    <main class="flex-grow-1">
-        {% block content %}{% endblock %}
-    </main>
+<body class="d-flex h-100 text-center text-white bg-dark">
+    
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        
+        <!-- Header -->
+        <header class="masthead mb-auto">
+            <div class="inner">
+                <h3 class="masthead-brand">
+                    <a href="{{ url_for('main_home') }}" class="text-white text-decoration-none">
+                        <i class="fas fa-tools me-2"></i>ABAssist
+                    </a>
+                </h3>
+                <nav class="nav nav-masthead justify-content-center">
+                    {% block nav_items %}
+                    <a class="nav-link" href="{{ url_for('main_home') }}">Home</a>
+                    <a class="nav-link" href="{{ url_for('lsv.home') }}">LSV</a>
+                    <a class="nav-link" href="{{ url_for('future_app.home') }}">Future App</a>
+                    {% endblock %}
+                </nav>
+            </div>
+        </header>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-light py-4 mt-auto">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <h6 class="fw-bold mb-2">
-                        <i class="fas fa-tools me-2"></i>
-                        ABAssist Platform
-                    </h6>
-                    <p class="mb-1 text-muted">Application Support and Reliability Engineering Tools</p>
-                    <small class="text-muted">Streamlining operations for engineering teams</small>
-                </div>
-                <div class="col-md-4 text-md-end">
-                    <div class="mb-2">
-                        <small class="text-muted">Quick Access:</small>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-md-end gap-2">
-                        <a href="{{ url_for('lsv.xml_generator_home') }}" class="btn btn-outline-light btn-sm">
-                            <i class="fas fa-file-code me-1"></i>XML Generator
-                        </a>
-                        <a href="{{ url_for('lsv.tran_reversal_home') }}" class="btn btn-outline-light btn-sm">
-                            <i class="fas fa-undo me-1"></i>Tran Reversal
-                        </a>
-                    </div>
-                </div>
+        <!-- Main Content -->
+        <main role="main" class="inner cover">
+            {% if not request.endpoint == 'main_home' %}
+            <div class="content-wrapper">
+            {% endif %}
+            
+            {% block content %}{% endblock %}
+            
+            {% if not request.endpoint == 'main_home' %}
             </div>
-            <hr class="my-3 border-secondary">
-            <div class="row align-items-center">
-                <div class="col-md-6">
-                    <small class="text-muted">
-                        © 2025 ABAssist Platform. Built for Application Support Teams.
+            {% endif %}
+        </main>
+
+        <!-- Footer -->
+        <footer class="masthead mt-auto">
+            <div class="inner">
+                <p class="text-muted">
+                    <small>
+                        <i class="fas fa-copyright me-1"></i>2025 ABAssist Platform - 
+                        Application Support and Reliability Engineering Tools
                     </small>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <small class="text-muted">
-                        <i class="fas fa-server me-1"></i>
-                        Powered by Flask & Bootstrap
-                    </small>
-                </div>
+                </p>
             </div>
-        </div>
-    </footer>
+        </footer>
+
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
